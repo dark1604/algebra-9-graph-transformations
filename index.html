@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>§ 10. Найпростіші перетворення графіків функцій — Демонстратор для вчителя</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-badge">9 клас · Алгебра</div>
+      <div>
+        <h1>§ 10. Найпростіші перетворення графіків функцій</h1>
+        <p class="subtitle">За підручником О. Істера, Д. Істера (2026) · Демонстраційний інструмент вчителя</p>
+      </div>
+    </div>
+
+    <div class="preset-bar">
+      <label for="presetSelect">Приклади та вправи з підручника:</label>
+      <select id="presetSelect">
+        <option value="custom">— Власна конфігурація —</option>
+        <optgroup label="Теоретичні приклади (§ 10)">
+          <option value="ex1_down">Приклад 1а: y = √x − 2 (Мал. 10.1)</option>
+          <option value="ex1_up">Приклад 1б: y = √x + 3 (Мал. 10.1)</option>
+          <option value="ex2">Приклад 2: y = (x − 2)² (Мал. 10.2)</option>
+          <option value="ex3">Приклад 3: y = (x + 1)² (Мал. 10.3)</option>
+          <option value="ex4">Приклад 4: y = −√x (Мал. 10.4)</option>
+          <option value="ex5_comp">Приклад 5а: y = 0,5|x| (Мал. 10.6)</option>
+          <option value="ex5_stretch">Приклад 5б: y = 2|x| (Мал. 10.7)</option>
+          <option value="ex6">Приклад 6: y = |x − 2| + 3 (Мал. 10.8)</option>
+          <option value="ex7">Приклад 7: y = −2√x (Мал. 10.9)</option>
+          <option value="ex8">Приклад 8: y = |0,5x − 2| (Мал. 10.10)</option>
+        </optgroup>
+        <optgroup label="Вправи (§ 10)">
+          <option value="task10_4">Вправа 10.4: y = (x − 1)³ + 2 (Мал. 10.11)</option>
+          <option value="task10_7">Вправа 10.7: y = √(x + 1) − 3</option>
+          <option value="task10_8">Вправа 10.8: y = (x − 3)² + 1</option>
+          <option value="task10_12">Вправа 10.12: y = −2(x + 1)² + 3</option>
+          <option value="task10_15">Вправа 10.15: y = √(x + 2) та y = 4/x</option>
+          <option value="task10_19">Вправа 10.19: y = (x + 4)/(x − 2) = 6/(x − 2) + 1</option>
+          <option value="task10_21">Вправа 10.21*: y = |x² − 4| (рівняння |x² − 4| = a)</option>
+        </optgroup>
+      </select>
+      <button id="resetBtn" class="btn btn-secondary" title="Скинути до базового вигляду">Скинути</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="controls-panel">
+      <section class="card">
+        <h2>1. Базова функція y = f(x)</h2>
+        <div class="base-grid" id="baseButtons">
+          <button class="chip active" data-fn="x2">x²</button>
+          <button class="chip" data-fn="sqrt">√x</button>
+          <button class="chip" data-fn="abs">|x|</button>
+          <button class="chip" data-fn="inv">k₀ / x</button>
+          <button class="chip" data-fn="x3">x³</button>
+          <button class="chip" data-fn="lin">0,5x − 2</button>
+          <button class="chip" data-fn="x2m4">x² − 4</button>
+        </div>
+        <div class="sub-param hidden" id="invParamRow">
+          <label for="invKSlider">Чисельник гіперболи k₀: <strong id="invKVal">4</strong></label>
+          <input id="invKSlider" type="range" min="-6" max="6" step="1" value="4" />
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2. Параметри перетворень</h2>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label for="hSlider">Горизонтальний зсув (m): f(x − h)</label>
+            <span class="value-pill" id="hVal">0</span>
+          </div>
+          <input id="hSlider" type="range" min="-6" max="6" step="0.5" value="0" />
+          <div class="hint">h &gt; 0 → праворуч (x − m); h &lt; 0 → ліворуч (x + m)</div>
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label for="kSlider">Коефіцієнт розтягу/стиску k (k &gt; 0)</label>
+            <span class="value-pill" id="kVal">1</span>
+          </div>
+          <input id="kSlider" type="range" min="0.25" max="3" step="0.25" value="1" />
+          <div class="hint">k &gt; 1 — розтяг від Ox; 0 &lt; k &lt; 1 — стиск до Ox</div>
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label for="vSlider">Вертикальний зсув (n): + n</label>
+            <span class="value-pill" id="vVal">0</span>
+          </div>
+          <input id="vSlider" type="range" min="-6" max="6" step="0.5" value="0" />
+          <div class="hint">n &gt; 0 → угору; n &lt; 0 → униз</div>
+        </div>
+
+        <div class="toggles-list">
+          <label class="toggle-row">
+            <input type="checkbox" id="reflectCheck" />
+            <span>Симетрія відносно осі x: <strong>y = −f(…)</strong></span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="outerAbsCheck" />
+            <span>Модуль функції: <strong>y = |f(…)|</strong> (п. 5)</span>
+          </label>
+        </div>
+
+        <div class="sub-param hidden" id="paramARow">
+          <div class="control-header">
+            <label for="paramASlider">Пряма y = a (для № 10.21*)</label>
+            <span class="value-pill" id="paramAVal">2</span>
+          </div>
+          <input id="paramASlider" type="range" min="-2" max="7" step="0.5" value="2" />
+          <label class="toggle-row">
+            <input type="checkbox" id="showLineACheck" />
+            <span>Показувати горизонтальну пряму y = a</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>3. Покроковий режим вчителя</h2>
+        <div class="stepper-controls">
+          <button id="prevStepBtn" class="btn btn-secondary">← Назад</button>
+          <span class="step-badge" id="stepBadge">Усі кроки</span>
+          <button id="nextStepBtn" class="btn btn-primary">Далі →</button>
+        </div>
+        <div class="step-pills" id="stepPills">
+          <button class="step-pill" data-step="0">0. База</button>
+          <button class="step-pill" data-step="1">1. Зсув Ox</button>
+          <button class="step-pill" data-step="2">2. k та −</button>
+          <button class="step-pill" data-step="3">3. Зсув Oy</button>
+          <button class="step-pill active" data-step="4">4. Фінал</button>
+        </div>
+
+        <div class="toggles-list compact">
+          <label class="toggle-row">
+            <input type="checkbox" id="showBaseCheck" checked />
+            <span>Показувати базовий графік y = f(x)</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="showIntermediateCheck" checked />
+            <span>Показувати проміжний етап</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="showVectorsCheck" checked />
+            <span>Стрілки перенесення опорних точок</span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="showSecondaryCheck" />
+            <span>Другий графік (для рівнянь, № 10.15: y = 4/x)</span>
+          </label>
+        </div>
+      </section>
+    </aside>
+
+    <section class="stage-area">
+      <div class="formula-banner card">
+        <div class="formula-main">
+          <span class="formula-label">Побудована функція:</span>
+          <code id="formulaDisplay" class="formula-code">y = x²</code>
+        </div>
+        <div class="zoom-controls">
+          <button id="zoomOutBtn" class="btn btn-icon" title="Зменшити масштаб">−</button>
+          <span id="zoomLabel">100%</span>
+          <button id="zoomInBtn" class="btn btn-icon" title="Збільшити масштаб">+</button>
+          <button id="centerBtn" class="btn btn-secondary btn-sm">Центр (0; 0)</button>
+        </div>
+      </div>
+
+      <div class="canvas-wrapper card">
+        <canvas id="graphCanvas"></canvas>
+        <div class="canvas-legend">
+          <span class="legend-item"><i class="swatch swatch-base"></i> Базова y = f(x)</span>
+          <span class="legend-item"><i class="swatch swatch-mid"></i> Проміжний крок</span>
+          <span class="legend-item"><i class="swatch swatch-final"></i> Результат</span>
+          <span class="legend-item"><i class="swatch swatch-vec"></i> Вектор переходу точки</span>
+          <span class="legend-item hidden" id="legendSecondary"><i class="swatch swatch-secondary"></i> y = 4/x</span>
+          <span class="legend-item hidden" id="legendLineA"><i class="swatch swatch-line-a"></i> y = a</span>
+        </div>
+        <div class="cursor-coords" id="cursorCoords">x: 0.0, y: 0.0</div>
+      </div>
+
+      <div class="info-grid">
+        <div class="card explanation-card">
+          <h3>Алгоритм пояснення для учнів</h3>
+          <ol id="stepsList" class="steps-list"></ol>
+          <p class="axis-note" id="axisNote"></p>
+        </div>
+
+        <div class="card table-card">
+          <h3>Таблиця опорних точок</h3>
+          <div class="table-scroll">
+            <table id="pointsTable">
+              <thead>
+                <tr>
+                  <th>x₀</th>
+                  <th>f(x₀)</th>
+                  <th>→</th>
+                  <th>x′</th>
+                  <th>y′ (фінал)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
